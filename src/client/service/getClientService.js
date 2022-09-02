@@ -3,6 +3,6 @@ const config = require('ebased/util/config');
 
 const CLIENT_TABLE = config.get('CLIENT_TABLE');
 
-const createService = async (item) => dynamodb.putItem({ TableName: CLIENT_TABLE, Item: item });
+const getClientService = async ({ dni }) => dynamodb.getItem({ TableName: CLIENT_TABLE, Key: { dni } });
 
-module.exports = { createService };
+module.exports = { getClientService };

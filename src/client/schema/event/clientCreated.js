@@ -1,12 +1,13 @@
-const { InputValidation } = require("ebased/schema/inputValidation");
+const { DownstreamEvent } = require('ebased/schema/downstreamEvent');
 
-class createClientInputSchema extends InputValidation {
+class ClientCreatedEvent extends DownstreamEvent {
     constructor(payload, meta) {
         super({
             source: meta.status,
-            payload: payload,
             source: 'CLIENT.CLIENT_CREATED',
             specversion: 'v1.0.0',
+            payload: payload,
+            meta: meta,
             schema: {
                 strict: false,
                 dni: { type: String, required: true },
@@ -16,6 +17,6 @@ class createClientInputSchema extends InputValidation {
             },
         });
     }
-};
+}
 
-module.exports = { createClientInputSchema };
+module.exports = { ClientCreatedEvent };
