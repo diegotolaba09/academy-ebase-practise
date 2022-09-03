@@ -21,8 +21,6 @@ provider:
   environment:
     CLIENT_TABLE: !Ref DiegoTolabaEbasedClient
     topicClient: !Ref topicClient
-    diegoTolabaEbasedCreateGift: !Ref diegoTolabaEbasedCreateGift
-    diegoTolabaEbasedCreateCard: !Ref diegoTolabaEbasedCreateCard
 
 functions:
   - ${file(src/client/functions.yml)}
