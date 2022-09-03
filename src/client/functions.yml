@@ -1,0 +1,71 @@
+clientCreate:
+    name: diegoTolaba-ebased-sls-createClient
+    description: 'An API that resturns Created client!'
+    handler: src/client/handler/createClient.handler
+    memorySize: 128
+    events:
+      - http: 
+          path: clients
+          method: post
+    destinations:
+      onSuccess:
+        type: sns
+        arn: !Ref topicClient
+
+giftCreate:
+    name: diegoTolaba-ebased-sls-createGift
+    description: 'Gift client!'
+    handler: src/client/handler/createGift.handler
+    memorySize: 128
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - diegoTolabaEbasedCreateGift
+              - Arn
+
+cardCreate:
+    name: diegoTolaba-ebased-sls-createCard
+    description: 'Card client!'
+    handler: src/client/handler/createCard.handler
+    memorySize: 128
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - diegoTolabaEbasedCreateCard
+              - Arn
+
+clientDelete:
+    name: diegoTolaba-ebased-sls-deleteClient
+    description: 'An API that resturns Client deleted!'
+    handler: src/client/handler/deleteClient.handler
+    memorySize: 128
+    events:
+      - http: 
+          path: clients/{dni}
+          method: delete
+
+clientUpdate:
+    name: diegoTolaba-ebased-sls-updateClient
+    description: 'An API that resturns Client updated!'
+    handler: src/client/handler/updateClient.handler
+    memorySize: 128
+    events:
+      - http: 
+          path: clients/{dni}
+          method: put
+    destinations:
+      onSuccess:
+        type: sns
+        arn: !Ref topicClient
+
+clientAll:
+    name: diegoTolaba-ebased-sls-allClient
+    description: 'An API that resturns all clients!'
+    handler: src/client/handler/allClient.handler
+    memorySize: 128
+    events:
+      - http: 
+          path: clients
+          method: get

@@ -89,6 +89,21 @@ const getCardFormatData = (client, cardType) => {
     return formatData;
 };
 
+const getClientFormatData = ({ dni, firstName, lastName, birthday }) => {
+    const formatData = {
+        Key: { dni },
+        ExpressionAttributeValues: {
+            ":firstName": firstName,
+            ":lastName": lastName,
+            ":birthday": birthday,
+        },
+        UpdateExpression: "set firstName = :firstName, lastName = :lastName, birthday = :birthday",
+        ReturnValues: "ALL_NEW",
+    };
+
+    return formatData;
+};
+
 const generateCode = () => {
     return Math.floor(Math.random() * (MAX_CODE - MIN_CODE) + MIN_CODE);
 };
@@ -110,4 +125,4 @@ const getCardType = (age) => {
     return cardType
 }
 
-module.exports = { validationData, getCardType, getAge, getBirthdayGift, getGiftFormatData, getCardFormatData }
+module.exports = { validationData, getCardType, getAge, getBirthdayGift, getClientFormatData, getGiftFormatData, getCardFormatData }
